@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'preact-redux';
-import { FILE_LOADED_SUCCESS } from './types';
+import { FILE_LOAD_INIT } from './types';
 import DropZone from './DropZone';
 
 const mapStateToProps = ({
@@ -18,7 +18,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   onFileLoaded: ({ fileName, fileLastModifiedDate, harJson }) => ({
-    type: FILE_LOADED_SUCCESS,
+    type: FILE_LOAD_INIT,
     fileName,
     fileLastModifiedDate,
     harJson,

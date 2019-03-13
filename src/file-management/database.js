@@ -21,12 +21,17 @@ req.onsuccess = ev => {
   database.dispatchEvent(new CustomEvent('open'));
 };
 
-database.addEventListener('newFile', event => {
+database.addFile = file => new Promise((resolve, reject) => {
   const tx = _db.transaction(['files'], 'readwrite');
   const store = tx.objectStore('files');
-  console.log('db', event.detail);
 
-  store.add(event.detail);
+  const r = store.add(file);
+
+  r.onerror = error => reject(error);
+  r.onsuccess = event => resolve({
+    id: event.target.result,
+    ...file,
+  });
 });
 
 database.getFiles = () => new Promise((resolve, reject) => {

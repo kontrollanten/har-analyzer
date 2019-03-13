@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
 import {
-  FILE_LOADED_SUCCESS,
+  FILE_LOAD_INIT,
   DATABASE_LOAD_FAILED,
   DATABASE_LOAD_INIT,
   DATABASE_LOAD_SUCCESS,

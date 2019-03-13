@@ -1,5 +1,5 @@
 import {
-  FILE_LOADED_SUCCESS,
+  FILE_LOAD_SUCCESS,
   DATABASE_LOAD_FAILED,
   DATABASE_LOAD_INIT,
   DATABASE_LOAD_SUCCESS,
@@ -17,20 +17,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         files: action.files,
-        selectedFile: [...action.files].pop().id,
+        selectedFile: ([...action.files].pop() || {}).id,
       };
-    case FILE_LOADED_SUCCESS:
+    case FILE_LOAD_SUCCESS:
       return {
         ...state,
         files: [
           ...state.files,
-          {
-            fileName: action.fileName,
-            fileLastModifiedDate: action.fileLastModifiedDate,
-            harJson: action.harJson,
-          },
+          action.file,
         ],
-        selectedFile: ([...state.files].pop() || { id: 0 }).id + 1,
+        selectedFile: action.file.id,
       };
 
     case SELECT_FILE:
