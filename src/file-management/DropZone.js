@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import App from '../App';
+import Header from './HeaderContainer';
 import dropHandler from '../lib/drop-handler';
 
 export default class DropZone extends Component {
@@ -19,7 +20,7 @@ export default class DropZone extends Component {
     });
   }
 
-  render({ fileName, fileLastModifiedDate, harJson }) {
+  render({ harJson }) {
     if (!harJson) {
       return (
         <div
@@ -35,20 +36,7 @@ export default class DropZone extends Component {
 
     return (
       <div>
-        <header
-          style={{
-            background: '#fff',
-            boxShadow: '1px 1px 1px rgba(0, 0,0, 0.4)',
-            fontWeight: 'bold',
-            position: 'sticky',
-            textAlign: 'center',
-            top: '0',
-          }}
-        >
-          <div>{fileName}</div>
-          <div>{fileLastModifiedDate}</div>
-        </header>
-
+        <Header />
         <App harJson={harJson} />
       </div>
     );

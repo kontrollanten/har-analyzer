@@ -1,0 +1,26 @@
+.Header {
+  background-color: #fff;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  position: sticky;
+  text-align: center;
+  top: 0;
+  z-index: 1;
+}
+
+.Menu {
+  display: flex;
+  list-style: none;
+}
+
+.MenuItem {
+  margin-right: 10px;
+}
+
+.MenuItem a {
+  color: #000;
+}
+
+.SelectedMenuItem a {
+  color: green;
+}

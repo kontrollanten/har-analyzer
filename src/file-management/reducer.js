@@ -3,6 +3,7 @@ import {
   DATABASE_LOAD_FAILED,
   DATABASE_LOAD_INIT,
   DATABASE_LOAD_SUCCESS,
+  SELECT_FILE,
 } from './types';
 
 const initialState = {
@@ -30,6 +31,12 @@ const reducer = (state = initialState, action) => {
           },
         ],
         selectedFile: ([...state.files].pop() || { id: 0 }).id + 1,
+      };
+
+    case SELECT_FILE:
+      return {
+        ...state,
+        selectedFile: action.id,
       };
     default:
       return state;
