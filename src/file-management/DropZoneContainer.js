@@ -4,14 +4,17 @@ import { FILE_LOADED_SUCCESS } from './types';
 import DropZone from './DropZone';
 
 const mapStateToProps = ({
-  fileName,
-  fileLastModifiedDate,
-  harJson,
-}) => ({
-  fileName,
-  fileLastModifiedDate,
-  harJson,
-});
+  files,
+  selectedFile,
+}) => {
+  const file = files.find(f => f.id === selectedFile) || {};
+
+  return ({
+    fileName: file.fileName,
+    fileLastModifiedDate: file.fileLastModifiedDate,
+    harJson: file.harJson,
+  })
+};
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   onFileLoaded: ({ fileName, fileLastModifiedDate, harJson }) => ({

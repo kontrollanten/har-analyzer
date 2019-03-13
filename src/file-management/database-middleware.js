@@ -8,7 +8,7 @@ const dbMw = store => next => action => {
 
   switch (action.type) {
     case FILE_LOADED_SUCCESS: {
-      const data = {...store.getState()};
+      const data = [...store.getState().files].pop();
       db.dispatchEvent(new CustomEvent('newFile', { detail: data }));
       break;
     }

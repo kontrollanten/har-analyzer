@@ -5,17 +5,31 @@ import {
   DATABASE_LOAD_SUCCESS,
 } from './types';
 
-const reducer = (state = {}, action) => {
+const initialState = {
+  files: [],
+  selectedFile: null,
+};
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case DATABASE_LOAD_SUCCESS:
       return {
-        ...action.files.pop()
+        ...state,
+        files: action.files,
+        selectedFile: [...action.files].pop().id,
       };
     case FILE_LOADED_SUCCESS:
       return {
-        fileName: action.fileName,
-        fileLastModifiedDate: action.fileLastModifiedDate,
-        harJson: action.harJson,
+        ...state,
+        files: [
+          ...state.files,
+          {
+            fileName: action.fileName,
+            fileLastModifiedDate: action.fileLastModifiedDate,
+            harJson: action.harJson,
+          },
+        ],
+        selectedFile: ([...state.files].pop() || { id: 0 }).id + 1,
       };
     default:
       return state;
