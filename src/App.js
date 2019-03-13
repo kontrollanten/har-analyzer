@@ -1,4 +1,5 @@
 import { h, Component } from 'preact';
+import { colorMap } from './FileView';
 import MimeTimeline from './MimeTimeline';
 import SecondsFormat from './SecondsFormat';
 import FileView from './FileView';
@@ -25,11 +26,11 @@ const getEntryPerMime = (harJson, excludedEntries) => Object.values(harJson.log.
   const { mimeType } = entry.response.content;
   const initiatorType = entry._initiator.type;
 
-  const key = mimeType+initiatorType;
+  const key = `${mimeType} ${initiatorType}`;
 
   const mimeStats = acc[key] || {
     contentSize: 0,
-    color: colors.find(c => !Object.keys(acc).find(mt => acc[mt].color === c)),
+    color: colorMap[key],
     count: 0,
     endTime: 0,
     startTime: new Date(entry.startedDateTime).getTime(),
@@ -126,7 +127,12 @@ export default class App extends Component {
           <tbody>
             {entryPerMime && entryPerMime
                 .map(({ contentSize, color, count, endTime, initiatorType, mimeType, startTime }) => (
-                <tr className={`bg-${color}`} key={mimeType+initiatorType}>
+                  <tr
+                    key={mimeType+initiatorType}
+                    style={{
+                      backgroundColor: colorMap[`${mimeType} ${initiatorType}`],
+                    }}
+                  >
                   <td>{mimeType}</td>
                   <td>{initiatorType}</td>
                   <td>{count}</td>
@@ -153,7 +159,10 @@ export default class App extends Component {
       >
           <tbody>
             {harJson.log.entries.map((entry, index) => (
-              <tr className={`bg-${(entryPerMime.find(e => e.mimeType === entry.response.content.mimeType) || {}).color}`}>
+              <tr style={{
+                backgroundColor: colorMap[`${entry.response.content.mimeType} ${entry._initiator.type}`],
+                fontWeight: 'bold',
+              }}>
                 <td>
                   <input
                     checked={excludedEntries.indexOf(index) === -1}

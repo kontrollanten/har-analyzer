@@ -33,8 +33,8 @@ const MimeTimeline = ({ endTime, mimeEntries, startTime }) => {
         }))
         .map(entry => (
         <div
-          className={`bg-${entry.color}`}
           style={{
+            backgroundColor: entry.color,
             left: `${(entry.relStartTime)*100/totalTime}%`,
             height: '20px',
             position: 'relative',

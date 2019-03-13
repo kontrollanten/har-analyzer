@@ -12,6 +12,9 @@
     "redux": "^4.0.1"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.0"
+    "autoprefixer": "^9.4.10",
+    "parcel-bundler": "^1.12.0",
+    "postcss-modules": "^1.4.1",
+    "sass": "^1.17.2"
   }
 }

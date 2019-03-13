@@ -1,6 +1,8 @@
 import { h } from "preact";
 
-const colorMap = {
+import styles from './fileview.scss';
+
+export const colorMap = {
   "text/html other": "blue",
   "text/css parser": "aqua",
   "application/javascript parser": "teal",
@@ -98,7 +100,7 @@ export default FileView;
 const Entry = ({ entry, totalDuration }) => {
   return (
     <div
-      className="fileEntry"
+      className={styles.FileEntry}
       onClick={() =>
         console.log(
           entry.size,
