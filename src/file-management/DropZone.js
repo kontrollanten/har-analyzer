@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import App from '../App';
+import App from '../presentation/App';
 import Header from './HeaderContainer';
 import dropHandler from '../lib/drop-handler';
 

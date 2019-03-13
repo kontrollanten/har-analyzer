@@ -1,6 +1,6 @@
 import { h } from 'preact';
-import getStyleForEntry from './lib/get-style-for-entry';
-import formatSeconds from './lib/format-seconds';
+import getStyleForEntry from '../lib/get-style-for-entry';
+import formatSeconds from '../lib/format-seconds';
 
 const MimeTimeline = ({ endTime, mimeEntries, startTime }) => {
   const totalTime = endTime - startTime;

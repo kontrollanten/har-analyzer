@@ -1,5 +1,5 @@
 import { h } from "preact";
-import getStyleForEntry from './lib/get-style-for-entry';
+import getStyleForEntry from '../lib/get-style-for-entry';
 import styles from './fileview.scss';
 
 const FileView = ({ harJson }) => {

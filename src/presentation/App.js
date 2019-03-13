@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import getStyleForEntry from './lib/get-style-for-entry';
+import getStyleForEntry from '../lib/get-style-for-entry';
 import MimeTimeline from './MimeTimeline';
 import SecondsFormat from './SecondsFormat';
 import FileView from './FileView';
