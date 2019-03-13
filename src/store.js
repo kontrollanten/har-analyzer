@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import {
   FILE_LOAD_INIT,
   DATABASE_LOAD_FAILED,
@@ -9,7 +9,8 @@ import dbMw from './file-management/database-middleware';
 import db from './file-management/database';
 import reducer from './file-management/reducer';
 
-const store = createStore(reducer, applyMiddleware(dbMw));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducer, composeEnhancers(applyMiddleware(dbMw)));
 
 store.dispatch({
   type: DATABASE_LOAD_INIT,
