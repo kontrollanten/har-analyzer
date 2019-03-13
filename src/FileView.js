@@ -1,21 +1,6 @@
 import { h } from "preact";
-
+import getStyleForEntry from './lib/get-style-for-entry';
 import styles from './fileview.scss';
-
-export const colorMap = {
-  "text/html other": "blue",
-  "text/css parser": "aqua",
-  "application/javascript parser": "teal",
-  "image/svg+xml parser": "olive",
-  "application/octet-stream parser": "green",
-  "application/javascript script": "lime",
-  "text/javascript script": "yellow",
-  "application/json script": "orange",
-  "image/gif script": "red",
-  "text/plain script": "fuchsia",
-  "image/x-icon other": "purple",
-  "text/css script": "maroon"
-};
 
 const FileView = ({ harJson }) => {
   const beginning = +new Date(harJson.log.pages[0].startedDateTime);
@@ -111,10 +96,9 @@ const Entry = ({ entry, totalDuration }) => {
         )
       }
       style={{
+        ...getStyleForEntry(entry),
         left: (entry.start / totalDuration) * 100 + "%",
         width: ((entry.end - entry.start) / totalDuration) * 100 + "%",
-        backgroundColor:
-          colorMap[entry.mimeType + " " + entry.initiator] || "silver"
       }}
       title={entry.desc}
     >

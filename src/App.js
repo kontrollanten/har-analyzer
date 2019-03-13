@@ -1,24 +1,8 @@
 import { h, Component } from 'preact';
-import { colorMap } from './FileView';
+import getStyleForEntry from './lib/get-style-for-entry';
 import MimeTimeline from './MimeTimeline';
 import SecondsFormat from './SecondsFormat';
 import FileView from './FileView';
-
-const colors = [
-  'blue',
-  'aqua',
-  'teal',
-  'olive',
-  'green',
-  'lime',
-  'yellow',
-  'orange',
-  'red',
-  'fuchsia',
-  'purple',
-  'maroon',
-  'silver',
-];
 
 const getEntryPerMime = (harJson, excludedEntries) => Object.values(harJson.log.entries.reduce((acc, entry, index) => {
   if (excludedEntries.indexOf(index) > -1) return acc;
@@ -30,7 +14,6 @@ const getEntryPerMime = (harJson, excludedEntries) => Object.values(harJson.log.
 
   const mimeStats = acc[key] || {
     contentSize: 0,
-    color: colorMap[key],
     count: 0,
     endTime: 0,
     startTime: new Date(entry.startedDateTime).getTime(),
@@ -129,9 +112,7 @@ export default class App extends Component {
                 .map(({ contentSize, color, count, endTime, initiatorType, mimeType, startTime }) => (
                   <tr
                     key={mimeType+initiatorType}
-                    style={{
-                      backgroundColor: colorMap[`${mimeType} ${initiatorType}`],
-                    }}
+                    style={getStyleForEntry({ mimeType, initiator: initiatorType })}
                   >
                   <td>{mimeType}</td>
                   <td>{initiatorType}</td>
@@ -159,10 +140,10 @@ export default class App extends Component {
       >
           <tbody>
             {harJson.log.entries.map((entry, index) => (
-              <tr style={{
-                backgroundColor: colorMap[`${entry.response.content.mimeType} ${entry._initiator.type}`],
-                fontWeight: 'bold',
-              }}>
+              <tr style={getStyleForEntry({
+                mimeType: entry.response.content.mimeType,
+                initiator: entry._initiator.type,
+              })}>
                 <td>
                   <input
                     checked={excludedEntries.indexOf(index) === -1}

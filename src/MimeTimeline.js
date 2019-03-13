@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import getStyleForEntry from './lib/get-style-for-entry';
 import formatSeconds from './lib/format-seconds';
 
 const MimeTimeline = ({ endTime, mimeEntries, startTime }) => {
@@ -34,7 +35,7 @@ const MimeTimeline = ({ endTime, mimeEntries, startTime }) => {
         .map(entry => (
         <div
           style={{
-            backgroundColor: entry.color,
+            ...getStyleForEntry({ ...entry, initiator: entry.initiatorType }),
             left: `${(entry.relStartTime)*100/totalTime}%`,
             height: '20px',
             position: 'relative',
