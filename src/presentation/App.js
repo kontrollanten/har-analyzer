@@ -148,6 +148,7 @@ export default class App extends Component {
         {entryPerMime && <MimeTimeline
           contentLoadTime={harJson.log.pages[0].pageTimings.onContentLoad}
           endTime={[...entryPerMime].sort((a, b) => a.endTime - b.endTime).pop().endTime}
+          loadTime={harJson.log.pages[0].pageTimings.onLoad}
           mimeEntries={entryPerMime}
           startTime={[...entryPerMime].shift().startTime}
         />}

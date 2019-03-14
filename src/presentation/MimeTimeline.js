@@ -2,7 +2,7 @@ import { h } from 'preact';
 import getStyleForEntry from '../lib/get-style-for-entry';
 import formatSeconds from '../lib/format-seconds';
 
-const MimeTimeline = ({ contentLoadTime, endTime, mimeEntries, startTime }) => {
+const MimeTimeline = ({ contentLoadTime, endTime, loadTime, mimeEntries, startTime }) => {
   const totalDuration = endTime - startTime;
   const stepSize = (totalDuration/5);
 
@@ -31,6 +31,21 @@ const MimeTimeline = ({ contentLoadTime, endTime, mimeEntries, startTime }) => {
       <div style={{
         position: 'relative',
       }}>
+        <div
+          style={{
+            position: "absolute",
+            width: "3px",
+            backgroundColor: "green",
+            top: 0,
+            bottom: 0,
+            left:
+              (loadTime / totalDuration) *
+                100 +
+              "%"
+          }}
+          title={`onLoad ${loadTime/1000} s`}
+        />
+
         <div
           style={{
             position: "absolute",
