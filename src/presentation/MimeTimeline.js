@@ -2,12 +2,12 @@ import { h } from 'preact';
 import getStyleForEntry from '../lib/get-style-for-entry';
 import formatSeconds from '../lib/format-seconds';
 
-const MimeTimeline = ({ endTime, mimeEntries, startTime }) => {
-  const totalTime = endTime - startTime;
-  const stepSize = (totalTime/5);
+const MimeTimeline = ({ contentLoadTime, endTime, mimeEntries, startTime }) => {
+  const totalDuration = endTime - startTime;
+  const stepSize = (totalDuration/5);
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ position: 'relative', width: '100%' }}>
       <h2>MIME timeline</h2>
 
       <div
@@ -21,34 +21,53 @@ const MimeTimeline = ({ endTime, mimeEntries, startTime }) => {
           .map((n) => (
             <div
               style={{
-                left: `${n*100/totalTime}%`,
+                left: `${n*100/totalDuration}%`,
                 position: 'absolute',
               }}
             >{n/1000} s</div>
           ))}
       </div>
 
-      {mimeEntries
-        .map(entry => ({
-          ...entry,
-          relStartTime: entry.startTime - startTime,
-          relEndTime: entry.endTime - startTime,
-        }))
-        .map(entry => (
+      <div style={{
+        position: 'relative',
+      }}>
         <div
           style={{
-            ...getStyleForEntry({ ...entry, initiator: entry.initiatorType }),
-            left: `${(entry.relStartTime)*100/totalTime}%`,
-            height: '20px',
-            position: 'relative',
-            whiteSpace: 'nowrap',
-            width: `${(entry.relEndTime-entry.relStartTime)*100/totalTime}%`,
+            position: "absolute",
+            width: "3px",
+            backgroundColor: "red",
+            top: 0,
+            bottom: 0,
+            left:
+              (contentLoadTime / totalDuration) *
+                100 +
+              "%"
           }}
-          title={`${formatSeconds(entry.relStartTime)} - ${formatSeconds(entry.relEndTime)}`}
-        >
-          {entry.mimeType} from {entry.initiatorType}
-        </div>
-      ))}
+          title={`onContentLoad ${contentLoadTime/1000} s`}
+        />
+
+        {mimeEntries
+          .map(entry => ({
+            ...entry,
+            relStartTime: entry.startTime - startTime,
+            relEndTime: entry.endTime - startTime,
+          }))
+          .map(entry => (
+          <div
+            style={{
+              ...getStyleForEntry({ ...entry, initiator: entry.initiatorType }),
+              left: `${(entry.relStartTime)*100/totalDuration}%`,
+              height: '20px',
+              position: 'relative',
+              whiteSpace: 'nowrap',
+              width: `${(entry.relEndTime-entry.relStartTime)*100/totalDuration}%`,
+            }}
+            title={`${formatSeconds(entry.relStartTime)} - ${formatSeconds(entry.relEndTime)}`}
+          >
+            {entry.mimeType} from {entry.initiatorType}
+          </div>
+        ))}
+      </div>
     </div>
   )
 };
