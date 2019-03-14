@@ -29,7 +29,7 @@ export default class DropZone extends Component {
             width: '100vw',
           }}
         >
-          <h1>Drop your HAR!</h1>
+          <h1>Drop your HAR files here.</h1>
         </div>
       );
     }
