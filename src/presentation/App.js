@@ -122,6 +122,26 @@ export default class App extends Component {
                   <td><SecondsFormat time={endTime - new Date(harJson.log.pages[0].startedDateTime).getTime() } /></td>
                 </tr>
               ))}
+
+              {entryPerMime && entryPerMime
+                  .reduce(([acc], { contentSize }) => ([{
+                    contentSize: acc.contentSize + contentSize,
+                  }]), [{ contentSize: 0 }])
+                  .map(({ contentSize }) => (
+                    <tr
+                      key="total"
+                      style={{
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      <td>Total</td>
+                      <td></td>
+                      <td></td>
+                      <td>{contentSize / 1024} kb</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  ))}
           </tbody>
         </table>
 
