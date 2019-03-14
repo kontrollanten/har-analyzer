@@ -4,6 +4,8 @@ import formatSeconds from '../lib/format-seconds';
 
 const MimeTimeline = ({ endTime, mimeEntries, startTime }) => {
   const totalTime = endTime - startTime;
+  const stepSize = (totalTime/5);
+
   return (
     <div style={{ width: '100%' }}>
       <h2>MIME timeline</h2>
@@ -14,15 +16,15 @@ const MimeTimeline = ({ endTime, mimeEntries, startTime }) => {
           position: 'relative',
         }}
       >
-      {Array.from(new Array(Math.round((endTime-startTime)/5000)))
-          .map((_b, i) => i * 5)
+      {Array.from(new Array(Math.round(5)))
+          .map((_b, i) => Math.round((i * stepSize)))
           .map((n) => (
             <div
               style={{
-                left: `${n*1000*100/totalTime}%`,
+                left: `${n*100/totalTime}%`,
                 position: 'absolute',
               }}
-            >{n} s</div>
+            >{n/1000} s</div>
           ))}
       </div>
 
