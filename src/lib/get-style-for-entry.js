@@ -1,3 +1,5 @@
+import color from 'color';
+
 const backgroundColors = {
   "application/javascript script": "lime",
   "application/javascript parser": "teal",
@@ -18,19 +20,12 @@ const backgroundColors = {
   "x-unknown parser": "moccasin",
 };
 
-const textColors = {
-  blue: 'white',
-  green: 'white',
-  maroon: 'white',
-  purple: 'white',
-  teal: 'white',
-};
-
 export default entry => {
   const backgroundColor = backgroundColors[entry.mimeType + ' ' + entry.initiator];
 
   return {
-    backgroundColor,
-    color: textColors[backgroundColor] || 'black',
+    backgroundColor: color(backgroundColor).alpha(0.4),
+    border: `1px solid ${backgroundColor}`,
+    color: 'black',
   };
 };
