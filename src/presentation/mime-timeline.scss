@@ -1,0 +1,44 @@
+.MimeTimeline {
+  position: relative;
+  width: 100%;
+}
+
+.XAxesLabel {
+  height: 20px;
+  position: relative;
+
+  > div {
+    position: absolute;
+  }
+}
+
+.Content {
+  position: relative;
+}
+
+.OnLoadMarker {
+  bottom: 0;
+  background-color: green;
+  position: absolute;
+  top: 0;
+  width: 3px;
+}
+
+.ContentLoadMarker {
+  bottom: 0;
+  background-color: red;
+  position: absolute;
+  top: 0;
+  width: 3px;
+}
+
+.MimeRow {
+  height: 20px;
+  position: relative;
+}
+
+.MimeTimeSpan {
+  height: 20px;
+  position: absolute;
+  white-space: nowrap;
+}
