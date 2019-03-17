@@ -33,12 +33,15 @@
 }
 
 .MimeRow {
-  height: 20px;
+  height: 40px;
   position: relative;
+  margin-bottom: 10px;
 }
 
 .MimeTimeSpan {
-  height: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
   position: absolute;
-  white-space: nowrap;
 }
