@@ -1,4 +1,4 @@
-const addTiming = ({ endTime, startTime }, timings) => {
+const addTiming = ({ endTime, startTime, url }, timings) => {
   const match = timings.findIndex(t => {
     if (endTime >= t.startTime && endTime <= t.endTime) return true;
     if (startTime >= t.startTime && startTime <= t.endTime) return true;
@@ -8,12 +8,13 @@ const addTiming = ({ endTime, startTime }, timings) => {
     timings[match] = {
       endTime: Math.max(endTime, timings[match].endTime),
       startTime: Math.min(startTime, timings[match].startTime),
+      urls: [...timings[match].urls, url],
     };
 
     return timings;
   }
 
-  return [...timings, { endTime, startTime }];
+  return [...timings, { endTime, startTime, urls: [url] }];
 };
 
 const getEntryPerMime = (harJson, excludedEntries) => Object.values(harJson.log.entries.reduce((acc, entry, index) => {
@@ -45,6 +46,7 @@ const getEntryPerMime = (harJson, excludedEntries) => Object.values(harJson.log.
       timings: addTiming({
         endTime: new Date(entry.startedDateTime).getTime() + entry.time,
         startTime: new Date(entry.startedDateTime).getTime(),
+        url: entry.request.url,
       }, mimeStats.timings),
     }
   });

@@ -85,7 +85,7 @@ const MimeTimeline = ({ contentLoadTime, endTime, loadTime, mimeEntries, startTi
                       whiteSpace: 'nowrap',
                       width: `${(time.relEndTime-time.relStartTime)*100/totalDuration}%`,
                     }}
-                    title={`${formatSeconds(time.relStartTime)} - ${formatSeconds(time.relEndTime)}`}
+                    title={`${formatSeconds(time.relStartTime)} - ${formatSeconds(time.relEndTime)}\n${time.urls.length} requests:\n${time.urls.join('\n')}`}
                   >
                     {index === 0 && (
                       `${entry.mimeType} from ${entry.initiatorType}`
