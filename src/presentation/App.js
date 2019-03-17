@@ -122,7 +122,6 @@ export default class App extends Component {
         {entryPerMime &&
           <MimeSummaryTable
             entryPerMime={entryPerMime}
-            harJson={harJson}
           />
         }
 
