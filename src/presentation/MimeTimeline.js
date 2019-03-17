@@ -62,26 +62,39 @@ const MimeTimeline = ({ contentLoadTime, endTime, loadTime, mimeEntries, startTi
         />
 
         {mimeEntries
-          .map(entry => ({
-            ...entry,
-            relStartTime: entry.startTime - startTime,
-            relEndTime: entry.endTime - startTime,
-          }))
-          .map(entry => (
-          <div
-            style={{
-              ...getStyleForEntry({ ...entry, initiator: entry.initiatorType }),
-              left: `${(entry.relStartTime)*100/totalDuration}%`,
-              height: '20px',
-              position: 'relative',
-              whiteSpace: 'nowrap',
-              width: `${(entry.relEndTime-entry.relStartTime)*100/totalDuration}%`,
-            }}
-            title={`${formatSeconds(entry.relStartTime)} - ${formatSeconds(entry.relEndTime)}`}
-          >
-            {entry.mimeType} from {entry.initiatorType}
-          </div>
-        ))}
+            .map(entry => (
+              <div
+                style={{
+                  height: 20,
+                  position: 'relative',
+                }}
+              >
+                {entry.timings
+                .map(entry => ({
+                  ...entry,
+                  relStartTime: entry.startTime - startTime,
+                  relEndTime: entry.endTime - startTime,
+                }))
+                .map((time, index) => (
+                  <div
+                    style={{
+                      ...getStyleForEntry({ ...entry, initiator: entry.initiatorType }),
+                      left: `${(time.relStartTime)*100/totalDuration}%`,
+                      height: '20px',
+                      position: 'absolute',
+                      whiteSpace: 'nowrap',
+                      width: `${(time.relEndTime-time.relStartTime)*100/totalDuration}%`,
+                    }}
+                    title={`${formatSeconds(time.relStartTime)} - ${formatSeconds(time.relEndTime)}`}
+                  >
+                    {index === 0 && (
+                      `${entry.mimeType} from ${entry.initiatorType}`
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))
+        }
       </div>
     </div>
   )
